@@ -1,41 +1,26 @@
-function initializeWidget()
-{
-	/*
-	 * Subscribe to the EmbeddedApp onPageLoad event before initializing the widget 
-	 */
-	ZOHO.embeddedApp.on("PageLoad",function(data)
-	{
-		
-		/*
-	 	 * Verify if EntityInformation is Passed 
-	 	 */
-		if(data && data.Entity)
-		{
-			/*
-		 	 * Fetch Information of Record passed in PageLoad
-		 	 * and insert the response into the dom
-		 	 */
-			ZOHO.CRM.API.getRecord({Entity:data.Entity,RecordID:data.EntityId})
-			.then(function(response)
-			{
-				
-    				document.getElementById("recordInfo").innerHTML = JSON.stringify(response,null,2);
-			});	
-		}
+function initializeWidget() {
+  ZOHO.embeddedApp.on("PageLoad", function (data) {
+    console.log(data);
+    ZOHO.CRM.API.getAllRecords({
+      Entity: "Contacts",
+      sort_order: "asc",
+      per_page: 1,
+      page: 1,
+    }).then(function (data) {
+      document
+        .getElementById("firstName")
+        .setAttribute("value", data.data[0].First_Name);
+      document
+        .getElementById("lastName")
+        .setAttribute("value", data.data[0].Last_Name);
+      document
+        .getElementById("email")
+        .setAttribute("value", data.data[0].Email);
+      document
+        .getElementById("phone")
+        .setAttribute("value", data.data[0].Phone);
+    });
+  });
 
-		/*
-		 * Fetch Current User Information from CRM
-		 * and insert the response into the dom
-		 */
-		ZOHO.CRM.CONFIG.getCurrentUser()
-		.then(function(response)
-		{
-			document.getElementById("userInfo").innerHTML = JSON.stringify(response,null,2);
-		});
-		
-	})
-	/*
-	 * initialize the widget.
-	 */
-	ZOHO.embeddedApp.init();
+  ZOHO.embeddedApp.init();
 }
