@@ -12,9 +12,8 @@ function initializeWidget() {
         var lastName = data.data[0].Last_Name;
         var email = data.data[0].Email;
         var phone = data.data[0].Phone;
-        var company = data.data[0].Company;
         var f = document.createElement("iframe");
-        f.src = `https://forms.zohopublic.com/aplikasidemo/form/OnlineSignUpForm/formperma/YScGpndCwUhuSJa4_ojEh2O8lmKthmabrzfU-2NAe1M?firstname=${firstName}&lastname=${lastName}&email=${email}&phone=${phone}&company=${company}`;
+        f.src = `https://zfrmz.com/6DRoABxuzEkzSqHUhxZ9?firstName=${firstName}&lastName=${lastName}&email=${email}&phone=${phone}`;
         f.style.border = "none";
         f.style.height = "100%";
         f.style.width = "100%";
@@ -53,21 +52,6 @@ function initializeWidget() {
         );
       } catch (e) {}
     })();
-    (function (data) {
-      document
-        .getElementById("firstName")
-        .setAttribute("value", data.data[0].First_Name);
-      document
-        .getElementById("lastName")
-        .setAttribute("value", data.data[0].Last_Name);
-      document
-        .getElementById("email")
-        .setAttribute("value", data.data[0].Email);
-      document
-        .getElementById("phone")
-        .setAttribute("value", data.data[0].Phone);
-      var firstName = data.data[0].First_Name;
-    });
   });
 
   ZOHO.embeddedApp.init();
